@@ -7,12 +7,12 @@ k get pods
 k get po
 k create namespace test
 k apply -f deployment.yaml
-k apply -f service.yaml 
+k apply -f service.yaml  -n test
 
 # when you delete a deployment file you authoumatically deletes the pods
-k delete -f deployment.yaml 
-k delete -f service.yaml 
-## create the file in test namaspace
+k delete -f deployment.yaml -n test
+k delete -f service.yaml -n test
+## create the file in test namespace
 k apply -f deployment.yaml -n test
 k apply -f service.yaml -n test
 
@@ -82,3 +82,6 @@ kubectl run nginxweb2 --image=nginx -ns test --dry-run=client -o yaml >output4.y
 
    # Start a busybox pod and keep it in the foreground, don't restart it if it exits
   kubectl run -i -t busybox --image=busybox --restart=Never
+
+  # To delete namespace
+  k delete namespace test
