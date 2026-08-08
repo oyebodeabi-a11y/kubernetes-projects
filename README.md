@@ -1,19 +1,21 @@
 # kubernetes-projects
-automates container deployment, scaling, and management. It serves as the core platform for modern cloud infrastructure, multi-cloud setups, and microservices.
+Automates container deployment, scaling, and management. It serves as the core platform for modern cloud infrastructure, multi-cloud setups, and microservices.
 
-To statrt the project - i.e. kick start the kubernetes cluster. Use minikube
+To start the project - i.e. kick start the kubernetes cluster. Use minikube
 Minikube is the singular node cluster.
 1. Log into Docker desktop
-2. # Run the command: minikube start
+2. Run the command: Minikube start
 3. Minikube cluster is a single node  cluster - this is usually used for development but never in production.
-# Make sure you are int he nginx folder for this project.
-4. In the minikube file folder; the nginx-folder - paste the deployment.yaml file, which has the defined pods.
-5. In the minikube file folder, paste the service.yaml file.
+# Make sure you are in the nginx folder for this project.
+4. In the minikube file folder; the nginx-folder - paste the deployment.yaml file, which has the defined pods.(if not done already)
+5. In the minikube file folder, paste the service.yaml file.(f not one already)
 6. In the terminal, define the alias using alias k=kubectl 
 7. Type k get nodes
 8. Next create the namespace, type k create namespace test
 9. To see it has been created, type k get namespace.
-10. Then type  k apply -f deployment.yaml -n test
+### 10. Then type  (This is my desired state file) 
+k apply -f deployment.yaml -n test 
+
 11. Then type k get pods -n test to create name space. Always ensure the name space is included in the command once its defined.
 12. Then type k describe pod nginx-deployment-77bc6bd484-24snm -n test
 13. Type k get events - this allows you to know more about the health of the cluster.
@@ -25,5 +27,5 @@ $ k get svc -n test
 NAME    TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 nginx   LoadBalancer   10.96.84.249   <pending>     80:30772/TCP   86s
 
-18. # to run nginx on the browser run the command within the test namespace
+18. To run nginx on the browser run the command within the test namespace
 Type the command:  minikube service nginx -n test
