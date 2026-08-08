@@ -32,9 +32,9 @@ Type the command:  minikube service nginx -n test
 
 To terminate the name space: type k delete namespace test. Then check the namespace is gone, type k get namespace. Then to  check the deployment   file is gone, type k get deployment.yaml -n test.
 
-# MINI TASK: You have been asked by your team lead to quickly using a single node cluster that is installed on my local machine.
-
-Deploy an nginx webserver in Kubernetes using the relevant manuscript files. Remember to create a namespace called dev. In the deployment.yaml file should only have 2 pods. 
+## MINI TASK:
+You have been asked by your team lead to use a single node cluster that is installed on my local machine to deploy an nginx webserver in Kubernetes using the relevant manuscript files. 
+Remember to create a namespace called "dev". The deployment.yaml file should only have 2 pods. 
 
 <img width="581" height="134" alt="Image" src="https://github.com/user-attachments/assets/efb59254-41c1-4320-aba1-639df8cb2b5f" />
 
