@@ -24,7 +24,7 @@ k get pods -n test
 
 k get events
 
-k describe svc apache2  -n test
+k describe svc nginx  -n test
 k get svc -n test 
 
 # # troubleshooting
@@ -34,9 +34,9 @@ k get pods -n test
 
 k logs jenkins-6fb994cfc5-twnvn -n test
 
-# to run apache2 on the browser run the command within the test namespace
+# to run nginx on the browser run the command within the test namespace
 
- minikube service apache2 -n test
+ minikube service nginx -n test
 
 
  ## =========================================================
@@ -48,13 +48,13 @@ k logs jenkins-6fb994cfc5-twnvn -n test
 
  # to create a pod in yaml before running it but output 
 
- k run apache2web1 --image apache2 -o yaml >output.yaml
+ k run nginxweb1 --image nginx -o yaml >output.yaml
 
 
  # Dry run; print the corresponding API objects without creating them
-  kubectl run apache2 --image=apache2 --dry-run=client
+  kubectl run nginx --image=nginx --dry-run=client
 
-  k run apache2web2 --image=apache2 --dry-run=client -o yaml >output3.yaml
+  k run nginxweb2 --image=nginx --dry-run=client -o yaml >output3.yaml
 
   k get pods
 NAME                                        READY   STATUS    RESTARTS       AGE
