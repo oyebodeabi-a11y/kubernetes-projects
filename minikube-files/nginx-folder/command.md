@@ -85,3 +85,12 @@ kubectl run nginxweb2 --image=nginx -ns test --dry-run=client -o yaml >output4.y
 
   # To delete namespace
   k delete namespace test
+
+ # To run imperative command
+  k run nginx --image nginx:1.14.2 -o yaml >abi.yaml
+
+# Dry run command
+k run nginx --image=nginx:1.14.2 --dry-run=client -o yaml >abirun.yaml
+
+### since the pod is running go inside the pod aND SHOW THE FOLDERS INSIDE IT
+k exec -it nginx -- sh

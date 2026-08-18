@@ -64,18 +64,35 @@ Solution:
 ### Kubernetes troubleshooting:
 1. Imagepulledbackoff error:
 Possible causes:
-a. When Kubernetes is trying to pull the image specified in the deployment file, caused by wrong  image tagging e.g. 1.14.2. When Kubernetes is trying to pull the image from Docker hub, the correct image is not availabe. This is the error generated.
+a. When Kubernetes is trying to pull the image specified in the deployment file, caused by wrong image tagging e.g. 1.14.2. When Kubernetes is trying to pull the image from Docker hub, the correct image is not availabe. This is the error generated.
 
-b. Wrong image name.
-c. Wrong command start.
+b. Wrong image name e.g nginx spelt as ngix which is the image name.
+c. Wrong command start. e.g in the docker file where the app.py is incorrectly written. 
+d. Wrong tag version e.g. 1.14.3 instead of 1.14.2
 
 
-To fix the image pullback error:
+To fix the image pullbackoff error:
 1. Type: k delete deployment nginx-deployment ###to check the deployment has been removed.
 2. Type: k get deployment ###to check that the resources have been removed.
 3. Type: k get pods ###to check if the pods are gone.
 4. Go back to the deployment.yaml file and correct the image name.
 
+2. Error: Pod in pending state
+E0818 10:33:49.050360   19992 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it."
+Unable to connect to the server: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.
+
+Causes:
+1. This means the nodes to accomodate the pod is not ready. 
+A Pod in Pending state is usually a scheduling problem: Kubernetes has created the Pod, but the scheduler cannot currently find a suitable worker node where it can place the Pod.
+
+Diagnosis:
+1. Run k get nodes
+
+2. minikube status
+This is to show the status of the single node cluster and to see if the node(s)
+
+solution: 
+Ensure the node and pods have a status as running when the k get status is checked.
 
 
 ## Jenkins Deployment
@@ -115,7 +132,7 @@ Type the command:  minikube service jenkins -n abi
 <img width="740" height="409" alt="Image" src="https://github.com/user-attachments/assets/a409ccce-314c-48b2-af34-cdc7c9d58787" />
 
 1. To delete the deployemnt, Type:k get deployment -n abi
-2. Then type: k delete deployment jenkins -n abi
+2. Then type: k delete deployment jenkins -n abi or k delete -f deployment.yaml
 3. To delete to delete the namespace, Type: k delete namespace abi
 
 
@@ -155,3 +172,33 @@ Type the command:  minikube service apache2 -n abi
 <img width="413" height="77" alt="Image" src="https://github.com/user-attachments/assets/2d6caae1-3ea5-48ae-a146-5286635f9ab6" />
 
 <img width="598" height="431" alt="Image" src="https://github.com/user-attachments/assets/d335b58d-12be-4cf5-a4a2-206895b5d058" />
+
+1. To delete the deployemnt, Type:k get deployment -n abi
+2. Then type: k delete deployment apache2-deployment -n abi
+3. To delete to delete the namespace, Type: k delete namespace abi
+
+
+### Challenges:
+
+Minikube start error:
+
+💣  Exiting due to PROVIDER_DOCKER_VERSION_EXIT_1: "docker version --format <no value>-<no value>:<no value>" exit status 1: failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+📘  Documentation: https://minikube.sigs.k8s.io/docs/drivers/docker/
+
+Docker desktop was not up and running.
+
+Solution:
+
+Sign into Docker desktop.
+Re run minikube start.
+Issue resolved.
+
+## Imperative commands
+
+A faster way of generating the yaml file based on specific spec provided.
+
+This is another method to launch the manifest scripts for server applications. 
+
+### Dry Run
+
+This is the process of running the kubernetes file without the corresponding object i.e. image or image name being created.
