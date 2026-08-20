@@ -94,7 +94,6 @@ This is to show the status of the single node cluster and to see if the node(s)
 solution: 
 Ensure the node and pods have a status as running when the k get status is checked.
 
-
 ## Jenkins Deployment
 1. In the minikube file folder; the jenkins-folder - paste the deployment.yaml file, which has the defined pods.(if not done already)
 5. In the minikube file folder, paste the service.yaml file.(f not one already)
