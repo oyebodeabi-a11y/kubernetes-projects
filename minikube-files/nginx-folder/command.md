@@ -92,5 +92,15 @@ kubectl run nginxweb2 --image=nginx -ns test --dry-run=client -o yaml >output4.y
 # Dry run command
 k run nginx --image=nginx:1.14.2 --dry-run=client -o yaml >abirun.yaml
 
-### since the pod is running go inside the pod aND SHOW THE FOLDERS INSIDE IT
+k run nginx --image=nginx:1.14.2 --dry-run=client -o yaml >abimbola.yaml
+
+k run web1 --namespace=application --image=httpd:alpine3.20 --dry-run=client -o yaml >task.yaml
+
+### since the pod is running go inside the pod and show the folders inside it.
 k exec -it nginx -- sh
+
+### To generate a service.yaml file from a dry run command
+kubectl expose pod nginx --type=LoadBalancer --port=80 --target-port=80 --name=abimbolaservice --dry-run=client -o yaml > abimbolaservice.yaml
+
+
+

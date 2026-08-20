@@ -202,3 +202,104 @@ This is another method to launch the manifest scripts for server applications.
 ### Dry Run
 
 This is the process of running the kubernetes file without the corresponding object i.e. image or image name being created.
+
+### Task
+Using Dry Run imperative command (because I did not want to create the pods automatically)
+Create 2 pods with a Dry run command to create the .yaml file. Run the yaml file and show that 2 pods have been created.
+
+Solution:
+Log into minikube start and log into docker desktop
+Create k alias first
+Run the dry run command to create abimbola.yaml file:
+k run nginx --image=nginx:1.14.2 --dry-run=client -o yaml >abimbola.yaml
+
+Run k apply -f abimbola.yaml
+
+Run k get pods
+
+Result: A single pod was created.
+
+Challenge : 2 pods are not created in the dry run yaml file.
+
+Reason:
+The kind: Pod resource does not support replicas: A standard Kubernetes Pod creates a single, isolated instance. If you want multiple managed instances, you should use a Deployment instead. Hence, the kind:Pod will only generated a single pod.
+
+Duplicate spec: keys: Your YAML currently has two separate spec: blocks. In YAML, a later key overwrites the earlier one, which is why your replicas: 2 is being ignored.
+
+Solution:
+
+To create multiple pods automatically, change the kind to Deployment, include the replicas: 2 setting inside the deployment's template spec, and add a selector.
+
+For a desired state pod, the kind must be deployment and not pod. 
+
+See command below:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx:1.14.2
+        name: nginx
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+### Task 2: Expose the application in the pod which is nginx
+Another dry run is exceuted as shown below: This is to create the dry run for the service.yaml file
+kubectl expose pod nginx --type=LoadBalancer --port=80 --target-port=80 --name=abimbolaservice --dry-run=client -o yaml > abimbolaservice.yaml
+
+Then run the command for to service.yaml file:
+k apply -f abimbola service
+
+Then run the command k get svc to show the services running.
+
+Then run the command minikube service abimbolaservice
+
+<img width="499" height="232" alt="Image" src="https://github.com/user-attachments/assets/a609b8f1-41a6-4380-b2f0-6d2313b4e52e" />
+
+
+Assignment:
+
+I. Create a single pod of image httpd:alpine3.20 in namespace application (check if namespace exist or not)
+Pls the pod should be name web1 and the container should be name web-container
+
+Ii. Write  a shell script to output the status of the pod
+
+Solution:
+First, create the dry run that will produce the yaml file with the command below:
+
+k run web1 --namespace=application --image=httpd:alpine3.20 --dry-run=client -o yaml >task.yaml
+
+Note: 
+1. A single pod is created
+2. pod name is web1
+3. Include namespace --namespace=application
+4. Include the image name, --image=httpd:alpine3.20
+5. Create the yaml file name, which is task.yaml
+5. Run the command above.
+
+
+
+k -n application get pod web1  -o jsonpath={.status}
+kubectl -n application  get pod web1  -o jsonpath={.status.phase
+
+#!/bin/bash
+kubectl -n application get pod web1  -o jsonpath={.status.phase}
+
+
+#make it executable
+
+chmod +x web1-status.sh

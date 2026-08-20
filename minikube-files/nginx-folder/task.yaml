@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: web1
+  name: web1
+  namespace: application
+spec:
+  containers:
+  - image: httpd:alpine3.20
+    name: web-container
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
