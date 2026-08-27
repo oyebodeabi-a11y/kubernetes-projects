@@ -270,12 +270,12 @@ Then run the command minikube service abimbolaservice
 <img width="499" height="232" alt="Image" src="https://github.com/user-attachments/assets/a609b8f1-41a6-4380-b2f0-6d2313b4e52e" />
 
 
-Assignment:
+Assignment 1:
 
 I. Create a single pod of image httpd:alpine3.20 in namespace application (check if namespace exist or not)
-Pls the pod should be name web1 and the container should be name web-container
+Pls the pod should be named web1 and the container should be name web-container
 
-Ii. Write  a shell script to output the status of the pod
+Ii. Write   to output the status of the pod
 
 Solution:
 First, create the dry run that will produce the yaml file with the command below:
@@ -298,7 +298,67 @@ kubectl -n application  get pod web1  -o jsonpath={.status.phase
 #!/bin/bash
 kubectl -n application get pod web1  -o jsonpath={.status.phase}
 
+The code above will show the status e.g Running
 
 #make it executable
 
 chmod +x web1-status.sh
+
+### To show shell script:
+type: 
+vim web1-status.sh
+then in insert mode, then copy:
+
+#make it executable
+
+chmod +x web1-status.sh
+
+save by typing esc:wq!
+then cat web1-status.sh
+
+To run the scripts, type ls
+then type ./web1-status.sh
+
+Assignment 2:
+I. Create a single pod of image nginx1.12 in namespace dev (check if namespace exist or not)
+Pls the pod should be name web2  and the container should be name web2-container. 
+Note this should be done using dry run, since a web container is requested. 
+
+Ii. Write  a shell script to output the status of the pod in json formart
+
+Solution: 
+First, create the dry run that will produce the yaml file with the command below:
+
+k run web2 --namespace=dev --image=nginx1.12 --dry-run=client -o yaml >task2.yaml
+
+Next create namespace, type: k create namespace dev
+To check  the namesapce is created, type: k get namespace
+
+Challenge:
+ErrImagePull is seen.
+
+Resolution:
+1. Type: k describe pod <podname> -n dev
+This will show the details of the error.
+
+To create shell script - follow the steps above. 
+
+Assignment 3:
+
+1. Create a namespace called myspace and a pod nginx  with image ngnix  on that namespace 
+2. Create a pod that was just described the pod using yaml
+3. Exec into the pods and in the tmp folder, create a file echoed i am learning kubernetes.
+4. Create a busybox pod that runs the command ”ls”, check the output.
+
+Note - you can only exec into a running pod.
+
+Solution:
+1. Create the namespace first using the command: k create namespace myspace.
+2. Use the following command: 
+k run nginx --namespace=myspace --image=nginx --dry-run=client -o yaml >task3.yaml
+3. Then run the yaml file, k apply -f task3.yaml -n myspace.
+4. k get pods -n myspace
+5. To make it executable, type  k exec <podname> -it -n myspace -- sh 
+6. Then type ls and cd into tmp folder
+7. Then echo with echo "I am listening kubernetes" >test.txt
+8. 

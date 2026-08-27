@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: web2
+  name: web2
+  namespace: dev
+spec:
+  containers:
+  - image: nginx1.12
+    name: web2-container
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
