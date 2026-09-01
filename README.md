@@ -3,6 +3,7 @@ Automates container deployment, scaling, and management. It serves as the core p
 
 To start the project - i.e. kick start the kubernetes cluster. Use minikube
 Minikube is the singular node cluster.
+AWS EKS - it is a kubernetes cluster self managed that operates within the  AWS cloud infrastrusture.
 1. Log into Docker desktop
 2. Run the command: Minikube start
 3. Minikube cluster is a single node  cluster - this is usually used for development but never in production.
@@ -14,7 +15,13 @@ Minikube is the singular node cluster.
 6. In the terminal, define the alias using:
 alias k=kubectl
 7. Type: k get nodes
-8. Next create the namespace, type: k create namespace test
+8. Next create the namespace, type: k create namespace test .
+Namespace - virtual partition. 
+This can happen when there are issues managing kubernetes clusters. 
+
+If the a particular node - management want be assigned to a node. The node  can deliberately tainted to allow a paricular pod to be assigned to it.
+And the assigned pod must have the correct toleration.
+
 9. To see it has been created, type k get namespace.
 ### 10. Then type  (This is my desired state file) 
 k apply -f deployment.yaml -n test 
@@ -361,4 +368,3 @@ k run nginx --namespace=myspace --image=nginx --dry-run=client -o yaml >task3.ya
 5. To make it executable, type  k exec <podname> -it -n myspace -- sh 
 6. Then type ls and cd into tmp folder
 7. Then echo with echo "I am listening kubernetes" >test.txt
-8. 

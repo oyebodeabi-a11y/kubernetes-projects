@@ -1,6 +1,10 @@
 ### Scenario 1: You are a cloud engineer and have deployed a pod and the pod is stuck  in pending state.
 
-It means the pod has not been scheduled to run in the nodes.
+It means the pod has not been scheduled to run in the nodes. This means something is wrong with the scheduler or it is not available.
+
+For nodes - the cpu allocation is not enough or the nodes are tainted. 
+
+The Kubernetes scheduler is the part of kubernetes which assigns newly created pods to suitable worker nodes.
 
 E0818 10:33:49.050360   19992 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"http://localhost:8080/api?timeout=32s\": dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it."
 Unable to connect to the server: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.

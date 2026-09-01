@@ -1,0 +1,77 @@
+As a young engineer just resuming work  within the kubernetes tech team. You have installed AWS eks within AWS infrastructure  all seems good.
+
+You deployed your deployment.yaml file( manifest files)with three pods replicas as your desired architecture of kind deployment 
+
+ But when you ran 
+
+kubectl get pods 
+
+
+You have an error
+"Pods in pending state"
+But when you ran 
+
+kubectl get nodes
+
+The above says your nodes are fine but the problem still persists and you are sure the nodes are not tainted in any way
+
+Now the question guys let me try your kubernetes troubleshooting skills now 
+
+What are the likely areas to troubleshoot to resolve the above issue.
+
+Possible reasons:
+
+1. If the nodes are deliberately tainted: If a certain node should not be assigned to a pod, (node houses the pod). This makes sure no one can use the pod assigned to the node. For it to be used it must have enough toleration. 
+2. Scheduler not available.
+3. CPU allocated for the node is too low.
+
+Solution:
+1. To taint a node, type:
+kubectl taint nodes minikube key1=value1:NoSchedule
+2. delete the deployment.yaml file, type:
+k delete deployment nginx-deployment
+3. Then type:
+k get deployment
+4. Then type:
+k get pods this is to check deployemnt is removed.
+Now go back and re-instate the deployment the yaml file:
+1. Type: k get nodes - this is to display the minikube cluster is available.
+2. Then apply the deployment.yaml  file; Type:
+k apply -f deployment.yaml. 
+This show the nginx-deployment is created.
+3. Then to show the pods, type:
+k get pods.
+4. The pods displayed are all in pending stated from the action of tainting th pods.
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-77bc6bd484-2d4rr   0/1     Pending   0          11s
+nginx-deployment-77bc6bd484-mjlv9   0/1     Pending   0          11s
+nginx-deployment-77bc6bd484-n24qd   0/1     Pending   0          11s
+
+To further troubleshoot the issue.
+1. Type: k get nodes -o wide
+This is to get further details on the nodes.
+2. Then describe the node, type:
+k describe pod nginx-deployment-77bc6bd484-2d4rr
+3. then get the general view of the pods, type:
+k get events
+4. Then type:
+ k get events -o wide
+5. The deployment.yaml is now updated with a toleration. This allows the pods to be successful assigned nodes by the scheduler.
+see toleration below:
+tolerations:
+      - key: "key1"
+        operator: "Equal"
+        value: "value1"
+        effect: "NoSchedule"
+6. Then type:
+k apply -f deployment.yaml to have the deployment.yaml reconfigured.
+7. Then type:
+k get pods.
+The result shows the pods are have the status running,  which shows the pods have been assigned to the correct nodes as per the scheduler.
+
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-5cf545f787-b6vct   1/1     Running   0          18s
+nginx-deployment-5cf545f787-c4sgb   1/1     Running   0          17s
+nginx-deployment-5cf545f787-gmjmx   1/1     Running   0          16s
+
+
