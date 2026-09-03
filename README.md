@@ -20,7 +20,7 @@ Namespace - virtual partition.
 This can happen when there are issues managing kubernetes clusters. 
 
 If the a particular node - management want be assigned to a node. The node  can deliberately tainted to allow a paricular pod to be assigned to it.
-And the assigned pod must have the correct toleration.
+And the assigned pod must have the correct toleration to ensure it is directed to the appropriate node.
 
 9. To see it has been created, type k get namespace.
 ### 10. Then type  (This is my desired state file) 

@@ -60,5 +60,5 @@ To avoid multiple ip address changing, a load balancer is implemented. This prev
 1. How does kubernetes not experience no low downtime?
 Kubernetes does not experience low downtime because the engineers configuring the desired state in the deployment.yaml file ensures 2 or 3 pods are stated in the deployment.yaml file.
 
-Also, the applications is evenly spread in the pods. This means if anything happens to the applications hosuing the pods, the 
+Also, the applications is evenly spread in the pods. This means if anything happens to the applications housing the pods, the 
 

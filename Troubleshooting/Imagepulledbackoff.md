@@ -1,4 +1,5 @@
-Imagepulledbackoff error
+Imagepulledbackoff error.
+Note this is also the same as "Imagepulledbackoff" error.
 
 Possible causes:
 a. When Kubernetes is trying to pull the image specified in the deployment file, caused by wrong image tagging e.g. 1.14.2. When Kubernetes is trying to pull the image from Docker hub, the correct image is not availabe. This is the error generated.

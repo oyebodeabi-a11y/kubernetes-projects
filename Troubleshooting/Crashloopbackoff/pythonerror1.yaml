@@ -2,14 +2,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    run: nginx1
-  name: nginx1
-spec:
-  replicas: 1
+    run: dialog3
+  name: dialog3
 spec:
   containers:
-  - image: nginx:1.14.2
-    name: nginx1
+  - image: bims15/dialog3:latest
+    name: dialog3
     resources: {}
   dnsPolicy: ClusterFirst
   restartPolicy: Always
