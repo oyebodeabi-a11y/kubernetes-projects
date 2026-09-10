@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: dialog4
+  name: dialog4
+spec:
+  containers:
+  - image: bims15/dialog4:latest
+    name: dialog4
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

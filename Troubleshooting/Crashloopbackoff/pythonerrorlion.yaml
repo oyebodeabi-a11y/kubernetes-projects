@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: dialoglion
+  name: dialoglion
+spec:
+  containers:
+  - image: bims15/dialoglion:latest
+    name: dialoglion
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

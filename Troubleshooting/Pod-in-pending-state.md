@@ -2,7 +2,7 @@
 
 It means the pod has not been scheduled to run in the nodes. This means something is wrong with the scheduler or it is not available.
 
-For nodes - the cpu allocation is not enough or the nodes are tainted. 
+For nodes - the CPU allocation is not enough or the nodes are tainted. 
 
 The Kubernetes scheduler is the part of kubernetes which assigns newly created pods to suitable worker nodes.
 

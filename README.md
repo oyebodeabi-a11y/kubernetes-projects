@@ -282,7 +282,7 @@ Assignment 1:
 I. Create a single pod of image httpd:alpine3.20 in namespace application (check if namespace exist or not)
 Pls the pod should be named web1 and the container should be name web-container
 
-Ii. Write   to output the status of the pod
+Ii. Write output status of the pod
 
 Solution:
 First, create the dry run that will produce the yaml file with the command below:

@@ -6,4 +6,4 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 80
-ENTRYPOINT ["python","app.py"]
+ENTRYPOINT ["python","appp.py"]

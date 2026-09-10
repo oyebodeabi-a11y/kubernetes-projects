@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: oom-killed-demo
+spec:
+  containers:
+  - name: memory-hog
+    image: ubuntu
+    command: ["/bin/bash", "-c"]
+    # A bash loop that consumes memory rapidly
+    args: ["leak='a'; while true; do leak=\"$leak$leak\"; done"]
+    resources:
+      requests:
+        memory: "50Mi"
+      limits:
+        memory: "100Mi" # The strict ceiling causing the crash

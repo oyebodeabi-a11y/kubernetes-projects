@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx:1.14.2
+    name: nginx
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  tolerations:
+  - key: "key1"
+    operator: "Equal"
+    value: "toggles"
+    effect: "NoSchedule"
+status: {}
+
