@@ -1,3 +1,18 @@
+Taint and Toleration: A means of managing the kubernetes ecosystem.
+
+In the kubernetes ecosystem, there can be instances where in the kubernetes clusters, some worker nodes need to be assigned to pod using the scheduler.
+
+As each pod is creacted in Kubernetes, they are assigned to nodes using the scheduler.
+
+There are situations were specific nodes need to be set aside i.e. for nodes to be allocated to be a particular application.
+In this case, a kubernetes management tool known as Taint and Toleration is utilised.
+
+If a particular node due to resourse management have to be assigned to a particlular pod - then it has to be tainted within a specified namespace.
+
+Once tainted, it means no pod can be assigned to the particular node unless the pod is having some form of toleration.
+
+If the required toleration has been added to the manifest script, the pod is created and the status shows as running and its been accepted by the node.
+
 As a young engineer just resuming work  within the kubernetes tech team. You have installed AWS eks within AWS infrastructure  all seems good.
 
 You deployed your deployment.yaml file( manifest files)with three pods replicas as your desired architecture of kind deployment 

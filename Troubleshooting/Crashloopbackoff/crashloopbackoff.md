@@ -17,7 +17,7 @@ python: can't open file '/app/appp.py': [Errno 2] No such file or directory
 
 3.A wrong CPU limit. Every docker image requires a certain CPU limit. If the cpu limit required is 100MB but the yaml file has 50MB, this can also cause a crashloopbackoff.
 
-As the docker image is in a container, when ran, and there are existing bugs/errors in the code - a crash occurs and the pods dies/ephemral.
+As the docker image is in a container, when ran, and there are existing bugs/errors in the code - a crash occurs and the pods dies/ephemeral.
 Kubernetes steps in and springs up another pod. This causes another crash and the loop continues. 
 
 As we know that in the deployment file, we start the presence of 3 more pods. 
