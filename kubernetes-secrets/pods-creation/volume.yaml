@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-no-volume
+spec:
+
+
+  containers:
+  - image: ubuntu
+    name: ubuntu-container
+    command: ["/bin/bash", "-c", "while true; do echo 'date'; sleep 30; done >> /var/log/output.log"]
+
+    volumeMounts:
+    - name: log-dir
+      mountPath: /var/log
+  volumes:
+  - name: log-dir
+    hostPath:
+    apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-no-volume
+spec:
+
+
+  containers:
+  - image: ubuntu
+    name: ubuntu-container
+    command: ["/bin/bash", "-c", "while true; do echo 'date'; sleep 30; done >> /var/log/output.log"]
+
+    volumeMounts:
+    - name: log-dir
+      mountPath: /var/log
+  volumes:
+  - name: log-dir
+    hostPath:

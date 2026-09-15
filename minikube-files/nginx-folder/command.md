@@ -8,6 +8,7 @@ k get po
 k create namespace test
 k apply -f deployment.yaml
 k apply -f service.yaml  -n test
+k get namespace
 
 # when you delete a deployment file you authoumatically deletes the pods
 k delete -f deployment.yaml -n test

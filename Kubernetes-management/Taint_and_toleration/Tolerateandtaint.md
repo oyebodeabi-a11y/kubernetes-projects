@@ -2,7 +2,7 @@ Taint and Toleration: A means of managing the kubernetes ecosystem.
 
 In the kubernetes ecosystem, there can be instances where in the kubernetes clusters, some worker nodes need to be assigned to pod using the scheduler.
 
-As each pod is creacted in Kubernetes, they are assigned to nodes using the scheduler.
+As each pod is created in Kubernetes, they are assigned to nodes using the scheduler.
 
 There are situations were specific nodes need to be set aside i.e. for nodes to be allocated to be a particular application.
 In this case, a kubernetes management tool known as Taint and Toleration is utilised.

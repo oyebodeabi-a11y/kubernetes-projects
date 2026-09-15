@@ -62,3 +62,4 @@ Kubernetes does not experience low downtime because the engineers configuring th
 
 Also, the applications is evenly spread in the pods. This means if anything happens to the applications housing the pods, the 
 
+### Images in a container, a container is in a pod and a pod is assigned to a node by a scheduler.

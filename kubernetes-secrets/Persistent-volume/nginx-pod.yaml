@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: mct
+  name: nginx-mct
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: mct-pvc-original
+  containers:
+    - name: mct-container
+      image: nginx
+      volumeMounts:
+        - mountPath: "/tmp/projectdata"
+          name: task-pv-storage
