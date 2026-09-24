@@ -1,6 +1,6 @@
 Pod anti affinity:
 This ensures pods are spread over the different nodes.
-This allows for high availability of the application and prevents a single source of failure. 
+This allows for high availability of the application and prevents a single source of failure. If anything happens to a pod in a single node, where the pods are spread across different nodes,  single source of failure is prevented.
 
 How do you prevent wastage in Kubernetes:
 1.By Introducing HVA. Kubernetes by default creates 3 worker nodes. if 3 is not required or there is a downtime with a pod, they are idle and could potentially lead to wastage. HPA is  then implemented which is auto-scaling of the pods allocated.

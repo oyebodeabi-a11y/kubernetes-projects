@@ -1,6 +1,6 @@
 KUBERNETES BACKGROUND
 What is Kubernetes?
-It deploys containerised applications to end users.
+It is a comtainer orchestration tool that deploys containerised applications to end users.
 
 What is Kubernetes clusters?
 These are a set of networked containers called nodes that run containerised applications.
@@ -36,6 +36,8 @@ What is a Pod?
 A pod is a small deployment and manageable object in kubernetes.
 
 Pods sit on top of a layer called nodes.
+
+Containers are put into pods and assigned to different worker nodes by the scheduler.
 
 Kuberetes clusters are a set of nodes that houses each of the pods.
 
