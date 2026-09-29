@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-pod
+spec:
+  containers:
+    - name: secret-test-container
+      image: nginx
+      
+      env:
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-demo
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-demo
+              key: password

@@ -1,0 +1,132 @@
+## PROJECT: AWS AUTHOURIZATION FOR A USER USING KUBERNETES RBAC CONFIGURATION 
+
+  ##################### Create AWS EKS clsuster #######################################################################
+
+## Pre-requisite links
+  https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
+
+## Pre-requisite links
+  https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
+
+#If this your first time of installing this on aws linux instance, remove the preinstalled yum version on it
+
+$sudo yum remove aws cli
+
+
+# install eksctl
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+sudo mv /tmp/eksctl /usr/local/bin
+
+eksctl version
+#==================================
+## install aws cli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
+sudo apt install unzip 
+unzip awscliv2.zip 
+sudo ./aws/install
+
+#check the version
+
+aws --version
+#======================================
+#now check if you have kubectl on your machine, run the command below
+$kubectl version
+$kubectl version --client
+
+#if not exist the install kubectl on linux used the link #below
+
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+#====================================
+
+
+## Create EKS cluster
+  eksctl create cluster --name eks-cluster-204 --node-type t2.large --nodes 1 --nodes-min 1 --nodes-max 2 --region eu-west-2
+
+  ## Update Kube config by entering below command:
+
+aws eks update-kubeconfig --name eks-cluster-204 --region eu-west-2
+
+
+## Get EKS Cluster service
+eksctl get cluster --name eks-cluster-204 --region eu-west-2
+
+## Get EKS Pod data.
+kubectl get pods --all-namespaces
+
+## Delete EKS cluster
+eksctl delete cluster --name eks-cluster-204 --region eu-west-2
+
+####################################################################################################################
+
+#################### EKS Cluster RBACs #############################################################################
+# kubernetes-rbac
+kubernetes rbac configuration is done to help with access control and permission of any staff all done within the aws infrastructure and ecosytem
+
+## first create the rbac-test namespace, and then install nginx into it
+kubectl create namespace rbac-test
+
+## Deploy nginx pod on clsuster
+kubectl create deploy nginx --image=nginx -n rbac-test
+
+## To verify the test pods were properly installed
+kubectl get all -n rbac-test
+## get status of the ngnx pod
+
+kubectl get pods -n rbac-test 
+
+# ==========================================
+## Create IAM user and create access key
+aws iam create-user --user-name rbac-user
+
+
+# once user was created creates access key
+
+aws iam create-access-key --user-name rbac-user
+
+# now the new Iam user created does not have acess to kubernetes RBAC
+
+### Now log into the terminal as the newly created rbac-user where u are not the admin and
+ ### use the newly generated Iam accesskey and secret to authenticate into aws
+
+aws configure
+access_key:-------
+secret-key:--------
+
+
+# after the above run to the below to confirm if authenticated in aws for rbac-user
+aws sts get-caller-identity
+{
+    "UserId": "",
+    "Account": "",
+    "Arn": "arn:aws:iam::user/rbac-user"
+}
+
+## We will use this to set another context with using above credentials
+AWS configure.
+
+
+# use the file below to map the rbac-user
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapUsers: |
+    - userarn: arn:aws:iam::759623136685:user/rbac-user
+      username: rbac-user
+
+## MAP Rbac-user TO K8S
+
+kubectl apply -f ./aws-auth.yaml
+
+Warning: resource configmaps/aws-auth is missing the
+ kubectl.kubernetes.io/last-applied-configuration annotation which is required by
+  kubectl apply. kubectl apply should only be used on resources created decla
