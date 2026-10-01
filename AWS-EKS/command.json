@@ -47,21 +47,21 @@ kubectl version --client
 
 
 ## Create EKS cluster
-  eksctl create cluster --name eks-cluster-204 --node-type t2.large --nodes 1 --nodes-min 1 --nodes-max 2 --region eu-west-2
+  eksctl create cluster --name eks-cluster-abi --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 2 --region eu-west-2
 
   ## Update Kube config by entering below command:
 
-aws eks update-kubeconfig --name eks-cluster-204 --region eu-west-2
+aws eks update-kubeconfig --name eks-cluster-abi --region eu-west-2
 
 
 ## Get EKS Cluster service
-eksctl get cluster --name eks-cluster-204 --region eu-west-2
+eksctl get cluster --name eks-cluster-abi --region eu-west-2
 
 ## Get EKS Pod data.
 kubectl get pods --all-namespaces
 
 ## Delete EKS cluster
-eksctl delete cluster --name eks-cluster-204 --region eu-west-2
+eksctl delete cluster --name eks-cluster-abi --region eu-west-2
 
 ####################################################################################################################
 
