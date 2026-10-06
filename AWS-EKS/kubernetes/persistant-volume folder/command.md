@@ -1,0 +1,1 @@
+k exec -it nginx-mct-abi -n abi -- sh
