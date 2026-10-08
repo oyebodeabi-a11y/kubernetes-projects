@@ -1,0 +1,7 @@
+vpc_cidr_block     = "10.0.0.0/16"
+subnet_cidr_block3 = "10.0.12.0/24"
+avail_zone3        = "eu-west-2c"
+env_prefix         = "dev"
+instance_type      = "t2.medium"
+ami                = "ami-0d114020bf27f27cf"
+region             = "eu-west-2" 

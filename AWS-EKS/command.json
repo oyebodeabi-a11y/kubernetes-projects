@@ -61,72 +61,7 @@ eksctl get cluster --name eks-cluster-abi --region eu-west-2
 kubectl get pods --all-namespaces
 
 ## Delete EKS cluster
-eksctl delete cluster --name eks-cluster-abi --region eu-west-2
+de
 
 ####################################################################################################################
 
-#################### EKS Cluster RBACs #############################################################################
-# kubernetes-rbac
-kubernetes rbac configuration is done to help with access control and permission of any staff all done within the aws infrastructure and ecosytem
-
-## first create the rbac-test namespace, and then install nginx into it
-kubectl create namespace rbac-test
-
-## Deploy nginx pod on clsuster
-kubectl create deploy nginx --image=nginx -n rbac-test
-
-## To verify the test pods were properly installed
-kubectl get all -n rbac-test
-## get status of the ngnx pod
-
-kubectl get pods -n rbac-test 
-
-# ==========================================
-## Create IAM user and create access key
-aws iam create-user --user-name rbac-user
-
-
-# once user was created creates access key
-
-aws iam create-access-key --user-name rbac-user
-
-# now the new Iam user created does not have acess to kubernetes RBAC
-
-### Now log into the terminal as the newly created rbac-user where u are not the admin and
- ### use the newly generated Iam accesskey and secret to authenticate into aws
-
-aws configure
-access_key:-------
-secret-key:--------
-
-
-# after the above run to the below to confirm if authenticated in aws for rbac-user
-aws sts get-caller-identity
-{
-    "UserId": "",
-    "Account": "",
-    "Arn": "arn:aws:iam::user/rbac-user"
-}
-
-## We will use this to set another context with using above credentials
-AWS configure.
-
-
-# use the file below to map the rbac-user
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-data:
-  mapUsers: |
-    - userarn: arn:aws:iam::759623136685:user/rbac-user
-      username: rbac-user
-
-## MAP Rbac-user TO K8S
-
-kubectl apply -f ./aws-auth.yaml
-
-Warning: resource configmaps/aws-auth is missing the
- kubectl.kubernetes.io/last-applied-configuration annotation which is required by
-  kubectl apply. kubectl apply should only be used on resources created decla
