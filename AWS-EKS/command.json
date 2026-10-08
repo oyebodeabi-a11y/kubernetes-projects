@@ -61,7 +61,6 @@ eksctl get cluster --name eks-cluster-abi --region eu-west-2
 kubectl get pods --all-namespaces
 
 ## Delete EKS cluster
-de
-
+eksctl delete cluster --name eks-cluster-204 --region eu-west-2
 ####################################################################################################################
 
