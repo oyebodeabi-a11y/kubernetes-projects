@@ -5,5 +5,5 @@ metadata:
   namespace: kube-system
 data:
   mapUsers: |
-    - userarn: arn:aws:iam::759623136685:user/rbac-user
+    - userarn: arn:aws:iam::794203517694:user/rbac-user
       username: rbac-user

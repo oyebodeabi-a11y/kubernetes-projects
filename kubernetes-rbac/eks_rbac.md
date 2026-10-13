@@ -1,6 +1,18 @@
 #################### EKS Cluster RBACs #############################################################################
 # kubernetes-rbac
-kubernetes rbac configuration is done to help with access control and permission of any staff all done within the aws infrastructure and ecosytem
+kubernetes rbac configuration is done to help with access control and permission of any staff all done within the aws infrastructure and ecosytem.
+
+Different Types of models to perfromthe authorisation:
+1.Attribute based access control
+2.Node authorisation
+3.Role based access control
+
+How do you maintain security within the kubernetes ecosystem:
+1.Secrets: Passwords, usernames are kept in a component of K8S of etcd.
+2.Namespaces: Creating namespaces allows partitions which provides secure walls within the ecosystems.
+3.Rbac users: Creating Role based access control users encures that users are limited to certain actions which is only granted by the admin user.
+
+With the Role based access control, the user may be given a "read-only" access in the kubernetes ecosystem. The access to the k8s is based purely on the role of the user. 
 
 ## first create the rbac-test namespace, and then install nginx into it
 kubectl create namespace rbac-test
@@ -29,12 +41,16 @@ aws iam create-access-key --user-name rbac-user
  ### use the newly generated Iam accesskey and secret to authenticate into aws
 
 aws configure
+
+The details below are shown:
 access_key:-------
 secret-key:--------
 
 
 # after the above run to the below to confirm if authenticated in aws for rbac-user
 aws sts get-caller-identity
+
+The details  below are shown:
 {
     "UserId": "",
     "Account": "",
@@ -44,7 +60,6 @@ aws sts get-caller-identity
 ## We will use this to set another context with using above credentials
 AWS configure.
 
-
 # use the file below to map the rbac-user
 apiVersion: v1
 kind: ConfigMap
@@ -53,7 +68,7 @@ metadata:
   namespace: kube-system
 data:
   mapUsers: |
-    - userarn: arn:aws:iam::759623136685:user/rbac-user
+    - userarn: arn:aws:iam::794203517694:user/rbac-user
       username: rbac-user
 
 ## MAP Rbac-user TO K8S
@@ -134,6 +149,7 @@ roleRef:
 
 kubectl apply -f ./rbacuser-role-binding.yaml
 
+The message below is displayed:
 rolebinding.rbac.authorization.k8s.io/read-pods created
 
 ## login with Kubernetes rbac-user again
